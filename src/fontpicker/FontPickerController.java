@@ -2,14 +2,9 @@ package fontpicker;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -64,13 +59,22 @@ public class FontPickerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<String> fonts=new ArrayList<>();
-        fonts.addAll(Font.getFamilies());
+        ArrayList<String> fonts = new ArrayList<>(Font.getFamilies());
         for (String font: fonts) {
             vbox1.getChildren().add(fontItem(font, 1));
             vbox2.getChildren().add(fontItem(font, 2));
         }
 
+        sizeSpinner1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,20));
+        sizeSpinner1.valueProperty().addListener((observableValue, oldValue, newValue) ->{
+            fontTF1.setFont(Font.font(fontTF1.getText(), weightCB1.getValue(), postureCB1.getValue(), newValue));
+            typeTA1.setFont(Font.font(fontTF1.getText(), weightCB1.getValue(), postureCB1.getValue(), newValue));
+    });
+        sizeSpinner2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1,30,20));
+        sizeSpinner2.valueProperty().addListener((observableValue, oldValue, newValue) -> {
+            fontTF2.setFont(Font.font(fontTF2.getText(), weightCB2.getValue(), postureCB2.getValue(), newValue));
+            typeTA2.setFont(Font.font(fontTF2.getText(), weightCB2.getValue(), postureCB2.getValue(), newValue));
+        });
 
         for(FontWeight fw : FontWeight.values()){
             weightCB1.getItems().add(fw);
@@ -78,14 +82,13 @@ public class FontPickerController implements Initializable {
         }
         weightCB1.getSelectionModel().selectFirst();
         weightCB1.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            System.out.println(fontTF1);
             fontTF1.setFont(Font.font(fontTF1.getText(), newValue, postureCB1.getValue(), sizeSpinner1.getValue()));
+            typeTA1.setFont(Font.font(fontTF1.getText(), newValue, postureCB1.getValue(), sizeSpinner1.getValue()));
         });
         weightCB2.getSelectionModel().selectFirst();
         weightCB2.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(newValue==null)
-                return;
             fontTF2.setFont(Font.font(fontTF2.getText(), newValue, postureCB2.getValue(), sizeSpinner2.getValue()));
+            typeTA2.setFont(Font.font(fontTF2.getText(), newValue, postureCB2.getValue(), sizeSpinner2.getValue()));
         });
 
 
@@ -95,15 +98,13 @@ public class FontPickerController implements Initializable {
         }
         postureCB1.getSelectionModel().selectFirst();
         postureCB1.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(newValue==null)
-                return;
             fontTF1.setFont(Font.font(fontTF1.getText(), weightCB1.getValue(), newValue, sizeSpinner1.getValue()));
+            typeTA1.setFont(Font.font(fontTF1.getText(), weightCB1.getValue(), newValue, sizeSpinner1.getValue()));
         });
         postureCB2.getSelectionModel().selectFirst();
         postureCB2.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            if(newValue==null)
-                return;
             fontTF2.setFont(Font.font(fontTF2.getText(), weightCB2.getValue(), newValue, sizeSpinner2.getValue()));
+            typeTA2.setFont(Font.font(fontTF2.getText(), weightCB2.getValue(), newValue, sizeSpinner2.getValue()));
         });
 
     }
@@ -130,10 +131,9 @@ public class FontPickerController implements Initializable {
         fontTF.setText(font);
         fontTF.setFont(Font.font(font, FontWeight.NORMAL, FontPosture.REGULAR, 20));
         typeTA.setFont(Font.font(font, FontWeight.NORMAL, FontPosture.REGULAR, 20));
+        sizeSpinner.getValueFactory().setValue(20);
         weightCB.getSelectionModel().select(FontWeight.NORMAL);
         postureCB.getSelectionModel().select(FontPosture.REGULAR);
-
-
     }
 }
 

@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FontPicker:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FontPicker_jar</output-path>
+    <root id="archive" name="FontPicker.jar">
+      <element id="module-output" name="FontPicker" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libraries/JavaFX/javafx.graphics.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
